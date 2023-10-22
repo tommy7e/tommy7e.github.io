@@ -70,8 +70,8 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background: white;
   border: 2px solid rgb(155, 155, 155);
   cursor: grab;
