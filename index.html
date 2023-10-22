@@ -164,6 +164,7 @@
                 width: 100%;
             }
         }
+
         label{
             margin-top: 10px;
         }
@@ -174,19 +175,14 @@
             var nama = document.getElementById("fname");
             var namab = document.getElementById("lname");
             var num = document.getElementById("num");
-            var mail = document.getElementById("mail")
+            var mail = document.getElementById("mail");
             var numStr = "" + num.value;
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            var nextStep = document.querySelector('#nextStep');
-
-            nextStep.addEventListener('click', function (e) {
-                e.preventDefault();
-                // Hide first view
-                document.getElementById('my_form').style.display = 'none';
-
-                // Show thank you message element
-                document.getElementById('thank_you').style.display = 'block';
-            });
+            console.log(nama.value);
+            console.log(namab.value);
+            console.log(num.value);
+            console.log(mail.value);
+            console.log(numStr.substring(3,).length);
 
             if (nama.value == "" || namab.value == "") { //isian kosong itu artinya textboxnya ga diisi apa2
                 alert("Nama tidak boleh kosong.");
@@ -216,9 +212,15 @@
                 return false; //function bukan void, ada return value
                 //stop, ga dikirim ke server
             }
-            if (numStr.substring(3,).length <= 9 ||numStr.substring(3,).length >=12) { //isian kosong itu artinya textboxnya ga diisi apa2
+            if (!(numStr.substring(3,).length >9 && numStr.substring(3,).length <12)) { //isian kosong itu artinya textboxnya ga diisi apa2
                 alert("Nomor telepon harus 10-11 digit.");
                 num.focus();
+                return false; //function bukan void, ada return value
+                //stop, ga dikirim ke server
+            }
+            if (mail.value == "") { //isian kosong itu artinya textboxnya ga diisi apa2
+                alert("email tidak boleh kosong.");
+                mail.focus();
                 return false; //function bukan void, ada return value
                 //stop, ga dikirim ke server
             }
@@ -232,6 +234,7 @@
             }
             return true; //boleh diberi boleh tidak, karena default function adalah true. Pencegahan ilai false berfungsi supaya tidak jadi dikirimkan
         }
+
     </script>
 </head>
 <body>
@@ -394,7 +397,7 @@
                 </script>
             </div>
             <div class="col-9 border pt-2">
-                <h5><b>The Latest Album of Wave to Earth</b></h5>
+                <h5><b>The Lastest Album of Wave to Earth</b></h5>
                 <div class="row">
                     <div class="col">
                         <p style="text-align: justify;">
@@ -522,7 +525,7 @@
         <h2 class="mt-3" id="03"> Get The Latest News </h2>
     </div>
     <div id="my_form">
-        <form class="container-fluid" name="myForm" onsubmit="return validateForm()">
+        <form class="container-fluid" name="myForm" action="https://open.spotify.com/intl-id/artist/5069JTmv5ZDyPeZaCCXiCg"  onsubmit="return validateForm()" method="post" target="_blank">
             <label>Name:</label>
             <div class="row">
                 <div class="col-6">
@@ -532,17 +535,13 @@
                     <input placeholder="last" type="text" id="lname" name="lname" class="form-control">
                 </div>
             </div>
-            <label for="num">Phone Number:</label>
+            <label>Phone Number:</label>
             <input value="+62" type="text" id="num" name="num" class="form-control">
             <label for="mail">E-Mail:</label>
-            <input placeholder="email" type="email" id="mail" name="mail" class="form-control">
+            <input placeholder="email" type="text" id="mail" name="mail" class="form-control">
             <br>
             <input type="reset" value="reset" class="border-0 bg-white float-left">
             <input id="nextStep" type="submit" value="Submit" class="btn btn-success d-block mx-auto my-3">
         </form>
-    </div>
-    <div id="thank_you" style="display: none; text-align: center;">
-        <h2>Thanks for filling up the form!</h2>
-        <button type="submit">Close</button>
     </div>
 </body>
