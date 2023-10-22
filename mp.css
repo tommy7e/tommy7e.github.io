@@ -9,6 +9,7 @@
     border: 1px solid transparent;
     border-radius: 20px;
     background-color: #a8a8a8;
+    padding-bottom: 10px;
   }
   .buttons{
   display: flex;
