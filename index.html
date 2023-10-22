@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>0.1 flaws and all available now</title>
     <link rel="icon" type="image/x-icon" href="image/icon.ico">
@@ -43,6 +44,9 @@
             backface-visibility: hidden;
             transition: transform 300ms;
             transition-timing-function: linear;
+        }
+        h3{
+            font-weight: bold;
         }
         .card-front {
             transform: rotateY(0deg);
@@ -92,6 +96,18 @@
             var num = document.getElementById("num");
             var mail = document.getElementById("mail")
             var numStr = "" + num.value;
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            var nextStep = document.querySelector('#nextStep');
+
+            nextStep.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Hide first view
+                document.getElementById('my_form').style.display = 'none';
+
+                // Show thank you message element
+                document.getElementById('thank_you').style.display = 'block';
+            });
+
             if (nama.value == "" || namab.value == "") { //isian kosong itu artinya textboxnya ga diisi apa2
                 alert("Nama tidak boleh kosong.");
                 return false; //function bukan void, ada return value
@@ -126,6 +142,14 @@
                 return false; //function bukan void, ada return value
                 //stop, ga dikirim ke server
             }
+            if (!mail.value.match(validRegex)) {
+
+                alert("Invalid email address!");
+
+                mail.focus();
+
+                return false;
+            }
             return true; //boleh diberi boleh tidak, karena default function adalah true. Pencegahan ilai false berfungsi supaya tidak jadi dikirimkan
             }
     </script>
@@ -133,7 +157,7 @@
 <body>
     <nav class="navbar navbar-expand bg-light navbar-light fixed-top">
         <a class="navbar-brand" target="_blank" href="https://open.spotify.com/intl-id/artist/5069JTmv5ZDyPeZaCCXiCg"> <img src="image/nav.png" alt="nav-logo"> </a>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" style="font-weight: bold;">
             <li class="nav-item" >
                 <a class="nav-link" href="#01"> Personnel </a>
             </li>
@@ -176,7 +200,7 @@
                 </div>
             </div>
         </div>
-        <h3 class="mt-3" id="01">Meet The Personnel</h3>
+        <h2 class="mt-3" id="01">Meet The Personnel</h2>
         <div id="kartu">
             <card class="row item">
                 <div class="col-4 card-body d-flex justify-content-around">
@@ -249,13 +273,13 @@
                 </div>
             </div>
         </div>
-        <h3 class="mt-3" id="02"> 0.1 flaws and all </h3>
+        <h2 class="mt-3" id="02"> 0.1 flaws and all </h2>
         <div class="row alb">
             <div class="col-3 border">
                 <img class="album" style="padding-top: 5px;" src="image/album.jpg" alt="album">
             </div>
             <div class="col-9 border">
-                <h5>The Lastest Album of Wave to Earth</h5>
+                <h5><b>The Lastest Album of Wave to Earth</b></h5>
                 <div class="row">
                     <div class="col">
                         <p style="text-align: justify;">
@@ -327,66 +351,83 @@
             </div>
         </div>
         <div class="row py-2 border border-top-0 d-block">
-            <h5>Ready to wave?</h5>
+            <h5 class="pl-4">Ready to wave?</h5>
             <div class="player">
                 <div class="wrapper">
+                    <div class="details">
+                        <div class="now-playing"></div>
+                        <div class="track-art"></div>
+                        <div class="track-name"></div>
+                        <div class="track-artist"></div>
+                    </div>
+         
                     <div class="slider_container">
                         <div class="current-time">00:00</div>
-                        <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
-                        <div class="total-duration">00:00</div>
-                    </div>   
+                         <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+                         <div class="total-duration">00:00</div>
+                    </div>
+         
+                    <div class="slider_container">
+                        <i class="fa fa-volume-down"></i>
+                         <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
+                         <i class="fa fa-volume-up"></i>
+                    </div>
+         
                     <div class="buttons">
-                        <div class="random-track" style="margin-right: 80px;" onclick="randomTrack()">
+                        <div class="random-track" onclick="randomTrack()">
                             <i class="fas fa-random fa-2x" title="random"></i>
                         </div>
                         <div class="prev-track" onclick="prevTrack()">
-                            <i class="fa fa-step-backward fa-2x"></i>
-                        </div>
-                        <div class="playpause-track" onclick="playpauseTrack()">
-                            <i class="fa fa-play-circle fa-5x"></i>
-                        </div>
-                        <div class="next-track" onclick="nextTrack()">
-                            <i class="fa fa-step-forward fa-2x"></i>
-                        </div>
-                        <div class="repeat-track" style="margin-left: 80px" onclick="repeatTrack()">
-                            <i class="fa fa-repeat fa-2x" title="repeat"></i>
-                        </div>
+                             <i class="fa fa-step-backward fa-2x"></i>
+                         </div>
+                         <div class="playpause-track" onclick="playpauseTrack()">
+                             <i class="fa fa-play-circle fa-5x"></i>
+                         </div>
+                         <div class="next-track" onclick="nextTrack()">
+                             <i class="fa fa-step-forward fa-2x"></i>
+                         </div>
+                         <div class="repeat-track" onclick="repeatTrack()">
+                             <i class="fa fa-repeat fa-2x" title="repeat"></i>
+                         </div>
                     </div>
-                    <div class="vol">
-                        <i class="fa fa-volume-down"></i>
-                        <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
-                        <i class="fa fa-volume-up"></i>
-                    </div>
-        
-                    <div id="wave">
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                    </div>  
+         
+                     <div id="wave">
+                         <span class="stroke"></span>
+                         <span class="stroke"></span>
+                         <span class="stroke"></span>
+                         <span class="stroke"></span>
+                         <span class="stroke"></span>
+                         <span class="stroke"></span>
+                         <span class="stroke"></span>
+                     </div>  
                 </div>
             </div>
-        </div>
-        <h3 class="mt-3" id="03"> Get The Latest News </h3>
     </div>
-    <form class="container-fluid" name="myForm" action="" onsubmit="return validateForm()" method="post" target="_blank">
-        <label>Name:</label>
-        <div class="row">
-            <div class="col-6">
-                <input placeholder="first" type="text" id="fname" name="fname" class="form-control">
+    <div class="row">
+        <h2 class="mt-3" id="03"> Get The Latest News </h2>
+    </div>
+    <div id="my_form">
+        <form class="container-fluid" name="myForm" onsubmit="return validateForm()">
+            <label>Name:</label>
+            <div class="row">
+                <div class="col-6">
+                    <input placeholder="first" type="text" id="fname" name="fname" class="form-control">
+                </div>
+                <div class="col-6">
+                    <input placeholder="last" type="text" id="lname" name="lname" class="form-control">
+                </div>
             </div>
-            <div class="col-6">
-                <input placeholder="last" type="text" id="lname" name="lname" class="form-control">
-            </div>
-        </div>
-        <label for="num">Phone Number:</label>
-        <input placeholder="phone number" type="text" id="num" name="num" class="form-control">
-        <label for="mail">E-Mail:</label>
-        <input placeholder="email" type="email" id="mail" name="mail" class="form-control">
-        <input type="reset" value="reset" class="border-0 bg-white float-right">
-        <input type="submit" value="Submit" class="btn btn-success d-block mx-auto mt-3">
-    </form>
+            <label for="num">Phone Number:</label>
+            <input value="+62" type="text" id="num" name="num" class="form-control">
+            <label for="mail">E-Mail:</label>
+            <input placeholder="email" type="email" id="mail" name="mail" class="form-control">
+            <br>
+            <input type="reset" value="reset" class="border-0 bg-white float-left">
+            <input id="nextStep" type="submit" value="Submit" class="btn btn-success d-block mx-auto my-3">
+        </form>
+    </div>
+    <div id="thank_you" style="display: none; text-align: center;">
+        <h2>Thanks for filling up the form!</h2>
+        <button type="submit">Close</button>
+    </div>
 </body>
